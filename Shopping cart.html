@@ -1,0 +1,118 @@
+<html>
+    <head>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+           
+            function Cart(){
+                var [products,setProducts]=React.useState([
+                    {
+                        image:"https://www.course-api.com/images/cart/phone-1.png",
+                        name:"Samsung",
+                        price:"399.99",
+                        quantity:1
+                    },
+                    {
+                        image:"https://www.course-api.com/images/cart/phone-2.png",
+                        name:"Google",
+                        price:"499.99",
+                        quantity:1
+                    },
+                    {
+                        image:"https://www.course-api.com/images/cart/phone-3.png",
+                        name:"Xiaomi",
+                        price:"599.99",
+                        quantity:1
+                    },
+                    {
+                        image:"https://www.course-api.com/images/cart/phone-2.png",
+                        name:"Samsung Galaxy",
+                        price:"699.99",
+                        quantity:1
+                    },
+
+                ])
+                console.log(products.length)
+
+                function inc(i){
+                    products[i].quantity++
+                    setProducts([...products])
+                    
+                }
+
+                function dec(i){
+                    products[i].quantity--
+                    setProducts([...products])
+
+                    if(products[i].quantity===0){
+                    products.splice(i,1)
+                    setProducts([...products])
+
+                    }
+                }
+
+
+                function clear(i){
+                    products[i].quantity===0
+                    products.splice(i,1)
+                    setProducts([...products])
+                }
+
+
+                return(
+                    <div class="border border-info p-3 m-5">
+                        <div class="border border-info bg-info p-3 m-1 d-flex flex-wrap justify-content-between">
+                            <h1 class="text-white mr-5">Use Reducer</h1>
+                            <i class="bi bi-cart"></i>
+                        </div>
+                        <div>
+                            {
+                                products.map((product,i)=>{
+                                    return <Productdetails inc={inc} dec={dec} i={i} product={product}></Productdetails>
+                                })
+                            }
+                        </div>
+                        <div class="p-3 m-2 d-flex flex-wrap justify-content-between">
+                            <h3>Total</h3>
+                        </div>
+                        <button class="btn btn-outline-danger" onClick={clear}>Clear Cart</button>
+                    </div>
+
+                )
+            }
+
+            function Productdetails(props){
+                return (
+                    <div class="p-3 m-2 d-flex flex-wrap justify-content-between">
+                        <img class="w-25 h-25" src={props.product.image} alt=""/>
+                        <div class="m-4">
+                            <h3>{props.product.name}</h3>
+                            <h5 class="text-info">${props.product.price}</h5>
+                            <h6 class="text-primary">remove</h6>
+                        </div>
+                        <div>
+                            <button onClick={()=>{props.inc(props.i)}}>+</button>
+                            {props.product.quantity}
+                            <button onClick={()=>{props.dec(props.i)}}>-</button>
+                        </div>
+                    </div>
+                )
+            }
+
+            function Empty(){
+                return(
+                    <h2>Empty....</h2>
+                )
+            }
+            ReactDOM.render(<Cart/>,document.getElementById("root"))
+
+        </script>
+    </body>
+</html>

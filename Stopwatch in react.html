@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+            function Stopwatch(){
+                var [minutes,setMinutes]=React.useState(2)
+                var [seconds,setSeconds]=React.useState(0)
+
+                function startTimer(){
+                    if(seconds===0){
+                        minutes=minutes-1
+                        seconds=59
+                        seconds=seconds-1
+                        setMinutes(minutes)
+                    }
+                }
+
+                return(
+                    <div class="container">
+                        <h1>Hello StackBlitz!</h1>
+                        <h2>{minutes}:{seconds}</h2>
+                        <div class="d-flex flex-wrap">
+                            <button onClick={startTimer}>start</button>
+                            <button>stop</button>
+                            <button>reset</button>
+                        </div>
+                    </div>
+                )
+            }
+            
+            ReactDOM.render(<Stopwatch/>,document.getElementById("root"))
+
+        </script>
+    </body>
+</html>

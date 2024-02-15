@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+            function Cart(){
+                var[items,setItems]=React.useState([
+                    {
+                        item:"item1",
+                        quantity:1,
+                        price:11.00
+                    },
+                    {
+                        item:"item2",
+                        quantity:1,
+                        price:12.00
+                    },
+                    {
+                        item:"item3",
+                        quantity:1,
+                        price:13.00
+                    },
+                    {
+                        item:"item4",
+                        quantity:1,
+                        price:14.00
+                    },
+                    {
+                        item:"item5",
+                        quantity:1,
+                        price:15.00
+                    }
+                ])
+                var [itemscount,setItemscount]=React.useState(0)
+                var [itemsprice,setItemsprice]=React.useState(0)
+
+                function addbutton(i){
+                    // console.log(i)
+                    var temp=[...items]
+                    temp[i].quantity++;
+
+                  
+                    setItemscount(totalquantity)
+                    setItems(temp)
+
+                }
+
+                function decbutton(i){
+                    var temp=[...items]
+                    temp[i].quantity--
+
+                    // var totalquantity={itemscount}+1
+                    // setItemscount(totalquantity)
+                    setItems(temp)
+
+                }
+
+                // function count(){
+                //     var temp=[...items]
+                // }
+
+                return(
+                    <div class="border border-info border-3 p-3 m-1">
+                        <h6>Itemscount:{itemscount}</h6>
+                        <h6>Itemsprice:{itemsprice}</h6>
+                        {
+                            items.map((it,i)=>{
+                                console.log(it)
+                                return <Itembox  decbutton={decbutton} addbutton={addbutton} i={i} it={it}></Itembox>
+                            })
+                        }
+                    </div>
+
+                )
+            }
+
+            function Itembox(props){
+                return (
+                    <div class="border border-info border-3 p-3 mt-1 d-flex flex-wrap justify-content-between">
+                        <h5>{props.it.item}</h5>
+                        <button class="btn btn-info  ml-2 btn-sm float-right">{props.it.quantity}</button>
+                        <span className="float-right">X</span>
+                        <button class="btn btn-info btn-sm float-right">{props.it.price}</button>
+                        <span className="float-right">=</span>
+                        <button class="btn btn-warning  btn-sm float-right">{props.it.quantity*props.it.price}</button>
+                        <button class="btn btn-danger btn-sm ml-2 mr-2 float-right" disabled={props.it.quantity===0} onClick={()=>{props.decbutton(props.i)}}>-</button>
+                        <button class="btn btn-primary btn-sm float-right" onClick={()=>{props.addbutton(props.i)}}>+</button>
+                       
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<Cart/>,document.getElementById("root"))
+
+
+
+        </script>
+    </body>
+</html>
+
+

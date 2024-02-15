@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </head>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+            function App(){
+                var [players,setPlayers]=React.useState(["Rohit Sharma","Kieron Pollard","Suryakumar Yadav","Jasprit Bumrah","Ishan Kishan","Ramandeep Singh","Arjun Tendulkar","Aryan Juyal","Fabian Allen","Basil Thampi","M Ashwin","Jaydev Unadkat"])
+                var [players1,setPlayers1]=React.useState([])
+
+                function deleteMISquad(i){
+                    var temp1=[...players];
+                    var temp2=[...players1]
+                    
+                    temp2.push(temp1[i])
+                    temp1.splice(i,1)
+
+                    setPlayers(temp1)
+                    setPlayers1(temp2)
+                }
+
+                function deletePlayingXI(i){
+                    var temp1=[...players]
+                    var temp2=[...players1]
+
+                    temp1.push(temp2[i])
+                    temp2.splice(i,1)
+
+                    setPlayers(temp1)
+                    setPlayers1(temp2)
+
+                }
+
+
+                return (
+                    <div class=" border border-info p-3 m-2 d-flex flex-wrap">
+                            <div class="border border-info p-3 m-2">
+                            <h4>Mumbai Indian Squad</h4>
+                            {
+                                players.length===0?"(no players in MI Squad)":"(click to unselect player)"
+                            }
+                                {
+                                    players.map((p,i)=>{
+                                        // console.log(p)
+                                        // console.log(i)
+                                        return <li onClick={()=>{deleteMISquad(i)}}>{p}</li>
+                                        
+                                    })
+                                }
+                            </div>
+                            
+                            <div class="border border-info p-3 m-2">
+                            <h4>PlayingXI- selected-{players1.length}</h4>
+                            {
+                                players1.length===0?"(no players selected)":"(click to unselect player)"
+                            }
+                            {
+                                players1.map((p1,i)=>{
+                                    return <li class="text-primary" onClick={()=>{deletePlayingXI(i)}}>{p1}</li>
+                                    
+                                })
+                            
+                            }
+                               
+                            </div>
+
+                    </div>
+                )
+            }
+                  
+
+            ReactDOM.render(<App/>,document.getElementById("root"))
+
+        </script>
+    </body>
+</html>

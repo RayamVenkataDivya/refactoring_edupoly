@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+            function Main(){
+                var[todos,setTodos]=React.useState([
+                    {
+                        title:"get bmw",
+                        status:true
+                    },
+                    {
+                        title:"pay current bill",
+                        status:false
+                    },
+                    {
+                        title:"pay school fee",
+                        status:true
+                    },
+                    {
+                        title:"bus fee",
+                        status:false
+                    }
+                ])
+
+                function addtodo(t){
+                    // console.log(t)
+                    setTodos([...todos,{title:t,status:true}])
+                }
+
+                function donetodo(i){
+                    // console.log(i)
+                    var temp=[...todos]
+                    temp[i].status=!temp[i].status
+                    setTodos([...temp])
+                }
+
+                function undotodo(i){
+                    console.log(i)
+                    var temp=[...todos]
+                    temp[i].status=!temp[i].status
+                    setTodos([...temp])
+                }
+
+
+                return(
+                    <div class="border border-dark p-3 mt-3">
+                        <h1>Todo List</h1>
+                        <Newtodoform addtodo={addtodo}></Newtodoform>
+                        {
+                            todos.map((todo,i)=>{
+                                return <Todo i={i} undotodo={undotodo} donetodo={donetodo} todo={todo}></Todo>
+                            })
+                        }
+                    </div>
+
+                )
+            }
+
+            function Newtodoform(props){
+                var[newtodo,setNewtodo]=React.useState("")
+                return (
+                    <div class="border border-danger p-3 mt-3">
+                        <input type="text" onKeyUp={(e)=>{setNewtodo(e.target.value)}}/>
+                        <button class="btn btn-success" onClick={()=>{props.addtodo(newtodo)}}>Add Todo</button>
+                    </div>
+                )
+            }
+
+            function Todo(props){
+                return <div class={props.todo.status?"bg-success d-flex flex-wrap mt-1 p-2":"bg-danger d-flex flex-wrap mt-1 p-2"}>
+                        <h4>{props.todo.title}</h4>
+                        <button onClick={(i=>{props.donetodo(props.i)})}>Done</button>
+                        <button onClick={(i=>{props.undotodo(props.i)})}>Undo</button>
+                    </div>
+            }
+
+            ReactDOM.render(<Main/>,document.getElementById("root"))
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+

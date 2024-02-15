@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </head>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+            function Iplteam(){
+                var[teams,setTeams]=React.useState([
+                    {
+                        teamname:"Mumbai Indians",
+                        teammembers:["Rohit","surya","kishan","bhumra","david"]
+                    },
+                    {
+                        teamname:"Royal Challengers Bengaluru",
+                        teammembers:["Faf","Virat","DK","Maxi","Siraj"]
+                    },
+                    {
+                        teamname:"Sunrisers Hyderabad",
+                        teammembers:["KaneWilliamson","Manish","Bhuvi","Warner","Karan"]
+                    },
+                    {
+                        teamname:"Chennai Super Kings",
+                        teammembers:["Dhoni","Raina","Jadeja","RayuduBen","Stokes"]
+                    }
+                ])
+
+                return(
+                    <div class="border border-dark p-4 m-2">
+                        <h1>Welcome to Edupoly</h1>
+                        {
+                            teams.map((team)=>{
+                                // console.log(team)
+                                return <Eachteam teamname={team.teamname} teammembers={team.teammembers}></Eachteam>
+                            })
+                        }
+
+                    </div>
+                )
+
+            }
+
+            function Eachteam(props){
+                // console.log(props)
+                console.log(props.teammembers)
+                return (
+                    <div class="border border-dark p-3 m-2">
+                        <h3>{props.teamname}</h3>
+                        <div>
+                            {
+                                props.teammembers.map((t)=>{
+                                    return <li>{t}</li>
+                                })
+
+                            }
+                        </div>
+                    </div>
+                )
+
+            }
+
+            ReactDOM.render(<Iplteam/>,document.getElementById("root"))
+
+        </script>
+    </body>
+</html>

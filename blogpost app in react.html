@@ -1,0 +1,115 @@
+<html>
+
+<head>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        function App() {
+            var [posts, setPosts] = React.useState([
+                {
+                    title: "morning vibes",
+                    content: "Surprise been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchan",
+                    likes: 10,
+                    dislikes: 66
+                },
+                {
+                    title: "react basic",
+                    content: "readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like re",
+                    likes: 20,
+                    dislikes: 56
+                },
+                {
+                    title: "Where can I get some?",
+                    content: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need t essentially unchan",
+                    likes: 30,
+                    dislikes: 55
+                }
+            ])
+
+            function likebtn(i) {
+                var temp = [...posts]
+                temp[i].likes++;
+                setPosts(temp)
+            }
+
+            function dislikebtn(i) {
+                var temp = [...posts]
+                temp[i].dislikes++;
+                setPosts(temp)
+            }
+
+            function add(p) {
+                // var temp=[...posts,addnewpost]
+                // // temp.push(p)
+                // // setPosts(temp)
+                // console.log(p)
+                setPosts([...posts, p])
+            }
+            // console.log(posts);
+
+            return (
+                <div class="border border-dark p-1 m-2">
+                    <h2>My Social App</h2>
+                    <Newpost add={add}></Newpost>
+                    {
+                        posts.map((p, i) => {
+                            // console.log(p)
+                            return <Postlist likebtn={likebtn} dislikebtn={dislikebtn} i={i} p={p}></Postlist>
+                        })
+                    }
+                </div>
+            )
+        }
+
+        function Newpost(props) {
+            var [addnewpost, setAddnewpost] = React.useState({
+                title: '',
+                content: '',
+                likes: 0,
+                dislikes: 0
+            })
+            
+            const handleNewPost = (e)=>{ 
+                // e.preventDefault();          
+                // console.log(addnewpost);
+                props.add(addnewpost)
+            }
+            return (
+                <div class="border border-secondary p-1 m-1">
+                        <h3>Title:</h3>
+                        <input type="text" name="title" placeholder="Enter title" onKeyUp={(e) => {setAddnewpost({...addnewpost, title:e.target.value}) }} />
+                        <h3>Content:</h3>
+                        <input type="text" name="content" onKeyUp={(e) => {setAddnewpost({...addnewpost, content:e.target.value}) }} /><br />
+                        <button class="btn btn-secondary mt-1" onClick={(e)=> handleNewPost(e)}>Add Post</button>   
+                </div>
+            )
+
+        }
+
+        function Postlist(props) {
+            // console.log(props.p)
+            // console.log(props.p.title)
+            return (
+                <div class="border border-secondary p-1 m-2">
+                    <h3>{props.p.title}</h3>
+                    <i>{props.p.content}</i><br />
+                    <div class="d-flex flex-wrap justify-content-between">
+                        <button id="like" class="btn btn-success" onClick={() => { props.likebtn(props.i) }}>Like:{props.p.likes}</button><br />
+                        <button id="dislike" class="btn btn-danger" onClick={() => { props.dislikebtn(props.i) }}>Dislike:{props.p.dislikes}</button>
+                    </div>
+                </div>
+            )
+        }
+
+        ReactDOM.render(<App />, document.getElementById("root"))
+    </script>
+</body>
+
+</html>
